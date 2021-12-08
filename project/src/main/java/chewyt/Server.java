@@ -17,7 +17,14 @@ public class Server {
     public void startServer(){
         try {
             System.out.println("[SERVER] Server ready. Listening for client...");
-            ExecutorService threadPool = Executors.newFixedThreadPool(3);
+            ExecutorService threadPool = Executors.newFixedThreadPool(2); // Third client join in--> Can Add to clienthandler but thread
+            //but thread is not assigned to the ClientHandler via void run menthod to continuously do br.readline for third client,
+            //thus unable to proceed to next step if broadcasting meesage
+
+            //Symptoms --> Client 1 send message, Client 2 and 3 receives, Client 3 receive based on the new thread inside CLient program
+            //         --> Client 2 send message, Client 1 and 3 receives, Client 3 receive based on the new thread inside CLient program
+            //         --> Client 3 send message, Client 1 and 2 does not receive, as Client Handler is not working for CLient 3 to read in input and broadcast to other parties.
+            
             while(!server.isClosed()){
                 Socket socket = server.accept();
                 System.out.println("A new client has connected.");
@@ -26,7 +33,7 @@ public class Server {
                 //Code for auto running and scheduling of threads from Threadpool by Executor Service
                 threadPool.submit(clienthandler);
 
-                //Code for normal thread operation without THreadpool management
+                //Code for normal thread operation without Threadpool management
                 //Thread thread = new Thread(clienthandler);
                 //thread.start();
                 
