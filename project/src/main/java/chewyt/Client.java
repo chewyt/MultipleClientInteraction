@@ -38,6 +38,7 @@ public class Client {
                 bw.write(username+": "+messageToSend);
                 bw.newLine();
                 bw.flush();
+                System.out.println("How many active threads: "+ Thread.activeCount());
             }
             scanner.close();
         } catch (IOException e) {
@@ -56,6 +57,7 @@ public class Client {
                     try {
                         messagefromGroupChat = br.readLine();
                         System.out.println(messagefromGroupChat);
+                        System.out.println("How many active threads: "+ Thread.activeCount());
             
                     } catch (IOException e) {
                         closeEverything(socket, br, bw);

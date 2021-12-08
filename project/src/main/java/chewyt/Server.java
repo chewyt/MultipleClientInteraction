@@ -2,6 +2,8 @@ package chewyt;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 
@@ -15,13 +17,20 @@ public class Server {
     public void startServer(){
         try {
             System.out.println("[SERVER] Server ready. Listening for client...");
+            ExecutorService threadPool = Executors.newFixedThreadPool(3);
             while(!server.isClosed()){
                 Socket socket = server.accept();
                 System.out.println("A new client has connected.");
                 ClientHandler clienthandler = new ClientHandler(socket);
 
-                Thread thread = new Thread(clienthandler);
-                thread.start();
+                //Code for auto running and scheduling of threads from Threadpool by Executor Service
+                threadPool.submit(clienthandler);
+
+                //Code for normal thread operation without THreadpool management
+                //Thread thread = new Thread(clienthandler);
+                //thread.start();
+                
+                System.out.println("How many active threads after user join: "+ Thread.activeCount());
             }
         } catch (IOException e) {
             System.out.println(e.getStackTrace());

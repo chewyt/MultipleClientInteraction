@@ -55,6 +55,8 @@ public class ClientHandler implements Runnable {
 
     public void broadcastMessage(String message){
 
+        
+
         for(ClientHandler aclient : clienthandlers){
             
             try {
@@ -74,7 +76,7 @@ public class ClientHandler implements Runnable {
     public void removeClientHandler(){
         clienthandlers.remove(this);
         broadcastMessage("[SERVER] "+username+ " has left the chat!");
-
+        System.out.println("How many active threads after user left: "+ Thread.activeCount());
     }
 
     public void closeEverything(Socket socket, BufferedReader br, BufferedWriter bw){
