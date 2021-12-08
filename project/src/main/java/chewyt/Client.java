@@ -26,7 +26,7 @@ public class Client {
     }
 
     public void sendMessage(){
-        System.out.println("Sending..");
+       // System.out.println("Sending..");
         try {
             bw.write(username);
             bw.newLine();
@@ -46,7 +46,7 @@ public class Client {
     }
 
     public void receiveMessage(){    // Need to use new thread by passing runnable object
-        System.out.println("Receviing..");
+        //System.out.println("Receviing..");
         new Thread(new Runnable() {
             
             @Override
