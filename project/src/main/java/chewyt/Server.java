@@ -14,7 +14,7 @@ public class Server {
     
     public void startServer(){
         try {
-
+            System.out.println("[SERVER] Server ready. Listening for client...");
             while(!server.isClosed()){
                 Socket socket = server.accept();
                 System.out.println("A new client has connected.");

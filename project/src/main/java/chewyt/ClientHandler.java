@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
+//Server class construct clienthanlder object the moments a client enter via server.accept
+//clienthanlder will work for functions to take in input and out streams for server from all clients
+
 public class ClientHandler implements Runnable {
 
     public static ArrayList<ClientHandler> clienthandlers = new ArrayList<>();
@@ -24,7 +27,7 @@ public class ClientHandler implements Runnable {
             //Adding client to arraylist, so that it can be part of group chat
             clienthandlers.add(this);
             //Informing the chat that somebody joined in the session
-            broadcastMessage("[SERVER] "+ username +" has entered the chat!")
+            broadcastMessage("[SERVER] "+ username +" has entered the chat!");
         } catch (IOException e) {
             closeEverything(socket,br,bw); 
         }
@@ -48,6 +51,8 @@ public class ClientHandler implements Runnable {
         
     }
 
+    //sub method to support thread operation from run()
+
     public void broadcastMessage(String message){
 
         for(ClientHandler aclient : clienthandlers){
@@ -65,7 +70,7 @@ public class ClientHandler implements Runnable {
         }
 
     }
-
+    //part of closeEverything method
     public void removeClientHandler(){
         clienthandlers.remove(this);
         broadcastMessage("[SERVER] "+username+ " has left the chat!");
